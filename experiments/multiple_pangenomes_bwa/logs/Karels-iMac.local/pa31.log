@@ -1,0 +1,70 @@
+Hostname:	Karels-iMac.local
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 54.006 sec
+
+[main_fastmap] fastmap matching: Real time: 228.318 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 31 pa31.fa kmers.31.fka
+[main] Real time: 296.096 sec; CPU: 248.380 sec
+      296.10 real       203.63 user        44.74 sys
+35743453184  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  13203064  page reclaims
+         1  page faults
+         0  swaps
+         5  block input operations
+         3  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     54476  voluntary context switches
+     57521  involuntary context switches
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 52.158 sec
+
+[main_fastmap] fastmap matching: Real time: 201.858 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 31 pa31.fa kmers.31.fka
+[main] Real time: 265.094 sec; CPU: 236.290 sec
+      265.11 real       199.08 user        37.20 sys
+37475008512  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  11692089  page reclaims
+         1  page faults
+         0  swaps
+         6  block input operations
+         4  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     40761  voluntary context switches
+     25350  involuntary context switches
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 52.281 sec
+
+[main_fastmap] fastmap matching: Real time: 204.277 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 31 pa31.fa kmers.31.fka
+[main] Real time: 267.447 sec; CPU: 235.443 sec
+      267.46 real       198.90 user        36.54 sys
+37474889728  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  11548627  page reclaims
+         1  page faults
+         0  swaps
+         5  block input operations
+         4  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     41674  voluntary context switches
+     25058  involuntary context switches

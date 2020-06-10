@@ -1,0 +1,10 @@
+*.complete
+*.fa
+*.fa.*
+*.fma
+*.fka
+!*.out
+!*.log
+tmp/
+
+slurm-7785*

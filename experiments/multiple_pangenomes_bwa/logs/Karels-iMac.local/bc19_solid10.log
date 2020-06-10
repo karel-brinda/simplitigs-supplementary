@@ -1,0 +1,70 @@
+Hostname:	Karels-iMac.local
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 222.588 sec
+
+[main_fastmap] fastmap matching: Real time: 188.310 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 bc19_solid10.fa kmers.19.fka
+[main] Real time: 469.140 sec; CPU: 428.958 sec
+      469.14 real       384.20 user        44.75 sys
+37841444864  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  18112515  page reclaims
+         1  page faults
+         0  swaps
+         5  block input operations
+         2  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     46032  voluntary context switches
+     51279  involuntary context switches
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 220.994 sec
+
+[main_fastmap] fastmap matching: Real time: 192.134 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 bc19_solid10.fa kmers.19.fka
+[main] Real time: 471.759 sec; CPU: 426.795 sec
+      471.77 real       384.48 user        42.31 sys
+37629173760  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  17575781  page reclaims
+         1  page faults
+         0  swaps
+         1  block input operations
+         3  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     45934  voluntary context switches
+     74739  involuntary context switches
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 221.195 sec
+
+[main_fastmap] fastmap matching: Real time: 178.982 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 bc19_solid10.fa kmers.19.fka
+[main] Real time: 458.287 sec; CPU: 426.200 sec
+      458.30 real       384.53 user        41.66 sys
+37853810688  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  17710324  page reclaims
+         1  page faults
+         0  swaps
+         1  block input operations
+         3  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     41238  voluntary context switches
+     49756  involuntary context switches

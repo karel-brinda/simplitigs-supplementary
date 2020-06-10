@@ -1,0 +1,161 @@
+import platform
+
+benchmark_repeats=3
+
+mac=platform.system()=="Darwin"
+
+names=["ecoli", "spneumoniae", "yeast", "celegan", "bombyx", "hg38"]
+#names=["ecoli"]
+
+k_set = [19, 23, 27, 31]
+
+comp = os.uname()[1]
+
+url = {
+    "pa15" : "https://zenodo.org/record/3800713/files/refseq-bact-pang-k15.fa.gz",
+    "pa19" : "https://zenodo.org/record/3800713/files/refseq-bact-pang-k19.fa.gz",
+    "pa23" : "https://zenodo.org/record/3800713/files/refseq-bact-pang-k23.fa.gz",
+    "pa27" : "https://zenodo.org/record/3800713/files/refseq-bact-pang-k27.fa.gz",
+    "pa31" : "https://zenodo.org/record/3800713/files/refseq-bact-pang-k31.fa.gz",
+    "bc19" : "https://zenodo.org/record/3814540/files/refseq-bact-pang.unitigs-k19.fasta.gz",
+    "bc23" : "https://zenodo.org/record/3814540/files/refseq-bact-pang.unitigs-k23.fasta.gz",
+    "bc27" : "https://zenodo.org/record/3814540/files/refseq-bact-pang.unitigs-k27.fasta.gz",
+    "bc31" : "https://zenodo.org/record/3814540/files/refseq-bact-pang.unitigs-k31.fasta.gz",
+}
+
+
+wildcard_constraints:
+    k="\d\d",
+    m="(pa|bc)",
+    suf="(|_solid\d+)",
+
+rule all:
+    input:
+        "all.complete"
+
+genomes=10
+rule eval_all:
+    output:
+        touch("all.complete")
+    input:
+        [
+            [
+                [
+                    (
+                        f"{m}{k}.complete",
+                        f"{m}{k}_solid{genomes}.complete",
+                    )for k in k_set
+                ]
+                for m in ["pa", "bc"]
+            ],
+            [f"kmers.{k}.fka" for k in k_set]
+        ]
+
+rule run_fastmap:
+    output:
+        out=touch("{m}{k}{suf}.complete")
+    input:
+        fa=ancient("{m}{k}{suf}.fa"),
+        sa=ancient("{m}{k}{suf}.fa.sa"),
+        fka="kmers.{k}.fka",
+    benchmark:
+        f"benchmarks/{comp}/"+"{m}{k}{suf}.log"
+    log:
+        f"logs/{comp}/"+"{m}{k}{suf}.log"
+    params:
+        gnutime="/usr/bin/time -l" if mac else "/usr/bin/time -v",
+        repeats=benchmark_repeats,
+    shell:
+        """
+        printf "" > "{log}"
+
+        (
+            printf "Hostname:\t"
+            hostname
+        ) >> "{log}"
+
+        (
+            for i in $(seq {params.repeats}); do
+            (
+                (
+                {params.gnutime} \\
+                ../../bwa/bwa fastmap -w 99999 -l {wildcards.k} {input.fa} {input.fka} \\
+                ) > /dev/null
+            ) 2>&1
+            done
+        ) >> "{log}"
+        """
+
+rule dwgsim:
+    output:
+        fka=protected("kmers.{k}.fka"),
+    input:
+        fa=ancient("subsampled_genomes.fma.bz2"),
+    params:
+        reads=10**7,
+        pref="tmp.{k}",
+        queue="short",
+        time="0-12:00",
+        mem_mb="60000",
+    shadow:
+        "shallow"
+    shell:
+        """
+            bzcat "{input.fa}" > genomes.fa
+            dwgsim \\
+                -R 0 -e 0 -r 0 -X 0 -y 0 -H -z 42 \\
+                -m /dev/null \\
+                -N {params.reads} \\
+                -1 {wildcards.k} -2 0 \\
+                genomes.fa \\
+                {params.pref}
+            seqtk seq -A {params.pref}.bwa.read1.fastq > {output.fka}
+        """
+
+
+rule bwa_index:
+    input:
+        fa="{pref}.fa"
+    output:
+        sa=ancient(protected("{pref}.fa.sa")),
+        bwt=ancient(protected("{pref}.fa.bwt")),
+        amb=ancient(protected("{pref}.fa.ann")),
+        ann=ancient(protected("{pref}.fa.amb")),
+        pac=ancient(protected("{pref}.fa.pac")),
+    params:
+        queue="medium",
+        time="2-00:00",
+        mem_mb="80000",
+    shell:
+        """
+            bwa index {input.fa}
+        """
+
+localrules: solid
+rule solid:
+    output:
+        fa="{pref}_solid{genomes}.fa"
+    input:
+        fa="{pref}.fa"
+    params:
+        genomes=5
+    shell:
+        """
+            ./select_solid.sh {input.fa} {genomes} {output.fa}
+        """
+
+
+rule download:
+    output:
+        fa=protected("{m}{k}.fa")
+    params:
+        url=lambda wildcards: url[f"{wildcards.m}{wildcards.k}"],
+        queue="short",
+        time="0-04:00",
+        mem_mb="2000",
+    shell:
+        """
+            wget -O - {params.url} \
+                | gzip -d \
+                > "{output.fa}"
+        """

@@ -1,0 +1,94 @@
+Hostname:	compute-a-16-151.o2.rc.hms.harvard.edu
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 139.544 sec
+
+[main_fastmap] fastmap matching: Real time: 323.693 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 pa19.fa kmers.19.fka
+[main] Real time: 467.423 sec; CPU: 451.809 sec
+	Command being timed: "../../bwa/bwa fastmap -w 99999 -l 19 pa19.fa kmers.19.fka"
+	User time (seconds): 404.71
+	System time (seconds): 47.90
+	Percent of CPU this job got: 96%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:48.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46049008
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 10888843
+	Voluntary context switches: 813
+	Involuntary context switches: 490
+	Swaps: 0
+	File system inputs: 77712952
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 120.094 sec
+
+[main_fastmap] fastmap matching: Real time: 327.019 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 pa19.fa kmers.19.fka
+[main] Real time: 451.044 sec; CPU: 450.849 sec
+	Command being timed: "../../bwa/bwa fastmap -w 99999 -l 19 pa19.fa kmers.19.fka"
+	User time (seconds): 408.07
+	System time (seconds): 43.61
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:31.89
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46048848
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 10418648
+	Voluntary context switches: 193
+	Involuntary context switches: 1388
+	Swaps: 0
+	File system inputs: 77709664
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 122.408 sec
+
+[main_fastmap] fastmap matching: Real time: 393.313 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 pa19.fa kmers.19.fka
+[main] Real time: 523.178 sec; CPU: 522.915 sec
+	Command being timed: "../../bwa/bwa fastmap -w 99999 -l 19 pa19.fa kmers.19.fka"
+	User time (seconds): 459.76
+	System time (seconds): 64.49
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:44.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46049004
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 12478393
+	Voluntary context switches: 212
+	Involuntary context switches: 997
+	Swaps: 0
+	File system inputs: 77707904
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

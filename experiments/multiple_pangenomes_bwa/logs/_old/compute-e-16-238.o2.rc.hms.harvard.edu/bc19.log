@@ -1,0 +1,11 @@
+Hostname:	compute-e-16-238.o2.rc.hms.harvard.edu
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 762.550 sec
+
+[main_fastmap] fastmap matching: Real time: 392.620 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap bc19.fa kmers.19.fka
+[main] Real time: 1186.231 sec; CPU: 1083.625 sec
+656.49user 432.00system 19:51.17elapsed 91%CPU (0avgtext+0avgdata 104824584maxresident)k
+145301464inputs+24outputs (31major+119126026minor)pagefaults 0swaps

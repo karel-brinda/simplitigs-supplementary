@@ -1,0 +1,70 @@
+Hostname:	Karels-iMac.local
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 86.328 sec
+
+[main_fastmap] fastmap matching: Real time: 112.611 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 23 bc23_solid10.fa kmers.23.fka
+[main] Real time: 220.933 sec; CPU: 220.625 sec
+      220.93 real       212.45 user         8.17 sys
+20795617280  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   5077076  page reclaims
+         1  page faults
+         0  swaps
+         0  block input operations
+         4  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+        34  voluntary context switches
+      6408  involuntary context switches
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 85.223 sec
+
+[main_fastmap] fastmap matching: Real time: 112.512 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 23 bc23_solid10.fa kmers.23.fka
+[main] Real time: 219.921 sec; CPU: 219.554 sec
+      219.92 real       212.26 user         7.28 sys
+20795539456  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   5077058  page reclaims
+         0  page faults
+         0  swaps
+         0  block input operations
+         2  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+         0  voluntary context switches
+      3420  involuntary context switches
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 85.322 sec
+
+[main_fastmap] fastmap matching: Real time: 112.522 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 23 bc23_solid10.fa kmers.23.fka
+[main] Real time: 220.004 sec; CPU: 219.646 sec
+      220.00 real       212.39 user         7.25 sys
+20795621376  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   5077078  page reclaims
+         0  page faults
+         0  swaps
+         0  block input operations
+         3  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+         0  voluntary context switches
+      3541  involuntary context switches

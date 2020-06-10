@@ -1,0 +1,20 @@
+Hostname:	Karels-iMac.local
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 165.311 sec
+Command terminated abnormally.
+      338.76 real       147.97 user       116.86 sys
+30326984704  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  29030430  page reclaims
+         1  page faults
+         0  swaps
+        16  block input operations
+         3  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+    123616  voluntary context switches
+    271098  involuntary context switches
