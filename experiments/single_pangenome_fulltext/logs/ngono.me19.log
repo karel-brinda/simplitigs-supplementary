@@ -1,0 +1,23 @@
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+
+[main_fastmap] fastmap index loading: Real time: 1.303 sec
+
+[main_fastmap] fastmap matching: Real time: 11145.579 sec
+[main] Version: 0.7.17-r1198-dirty
+[main] CMD: ../../bwa/bwa fastmap -w 99999 -l 19 ngono.me19.fna kmers.19.fa
+[main] Real time: 11147.024 sec; CPU: 11145.766 sec
+    11147.02 real     11136.90 user         8.85 sys
+3550973952  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+    866958  page reclaims
+         0  page faults
+         0  swaps
+         0  block input operations
+         4  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+         0  voluntary context switches
+    185475  involuntary context switches

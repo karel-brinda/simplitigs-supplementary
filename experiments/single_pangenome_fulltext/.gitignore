@@ -1,0 +1,6 @@
+*.fna
+*.complete
+*.fna.*
+*.fa
+*.fa.*
+!*.log

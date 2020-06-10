@@ -1,0 +1,158 @@
+import os
+
+ks=[19, 23, 27, 31]
+
+
+wildcard_constraints:
+    k=r'\d+',
+    l=r'\d+',
+    m='(pa|bc|me)'
+
+
+rule all:
+    input:
+        [
+            [
+                f"ngono.{m}{k}.complete"
+                for k in ks
+            ]
+            for m in ["pa", "bc", "me"]
+        ]
+
+
+rule evaluate:
+    output:
+        out=touch("ngono.{m}{k}.complete")
+    input:
+        fna="ngono.{m}{k}.fna",
+        sa="ngono.{m}{k}.fna.sa",
+        fa="kmers.{k}.fa",
+    log:
+        "logs/ngono.{m}{k}.log"
+    benchmark:
+        "benchmarks/ngono.{m}{k}.txt"
+    threads:
+        8
+    shell:
+        """
+            /usr/bin/time -l ../../bwa/bwa fastmap -w 99999 -l {wildcards.k} {input.fna} {input.fa} > /dev/null 2> {log}
+        """
+
+ruleorder: symlink_merged > bwa
+rule symlink_merged:
+    output:
+        fna="ngono.me{k}.fna",
+        sa="ngono.me{k}.fna.sa",
+    input:
+        fna="ngono.merged.fna",
+        sa="ngono.merged.fna.sa"
+    shell:
+        """
+            ln -sf {input.fna} {output.fna}
+            for suf in sa ann amb bwt pac; do
+                ln -sf {input.fna}.$suf {output.fna}.$suf
+            done
+        """
+
+
+
+rule simulation_wgsim:
+    output:
+        fa="kmers.{k}.fa"
+    input:
+        fna="ngono.merged_short.fna"
+    shadow:
+        "shallow"
+    params:
+        N=int(1e7),
+    shell:
+        """
+            wgsim \
+                -h \
+                -S 42 \
+                -r 0.0 \
+                -1 {wildcards.k} \
+                -N {params.N} \
+                -e 0 \
+                {input.fna} \
+                tmp.fq \
+                /dev/null \
+                > /dev/null
+            cat tmp.fq \
+                | seqtk seq \
+                > {output.fa}
+        """
+
+
+rule bwa:
+    output:
+        sa="{pref}.fna.sa"
+    input:
+        fna="{pref}.fna"
+    shell:
+        """
+            bwa index {input.fna}
+        """
+
+
+p=os.getcwd()
+rule bcalm:
+    output:
+        fna="ngono.bc{k}.fna"
+    input:
+        fna="ngono.merged.fna",
+    params:
+        fa="ngono.merged.unitigs.fa",
+        p=p
+    threads:
+        4
+    shadow:
+        "shallow"
+    shell:
+        """
+            {params.p}/../../bcalm/bcalm \\
+                -nb-cores {threads} \\
+                -in {input.fna} \\
+                -kmer-size {wildcards.k} \\
+                -abundance-min 1
+            mv {params.fa} {output.fna}
+        """
+
+
+rule prophasm:
+    output:
+        fna="ngono.pa{k}.fna"
+    input:
+        fna="ngono.merged.fna"
+    shell:
+        """
+            ../../prophasm/prophasm \\
+                -i {input.fna} \\
+                -k {wildcards.k} \\
+                -o {output.fna}
+        """
+
+
+rule cut:
+    output:
+        fna="ngono.merged_short.fna"
+    input:
+        fna="ngono.merged.fna"
+    params:
+        c=int(1e8)
+    shell:
+        """
+            head -c {params.c} {input.fna} \\
+                > "{output.fna}"
+        """
+
+
+rule merge:
+    output:
+        fna="ngono.merged.fna"
+    shell:
+        """
+            cat ../single_pangenome_scaling/ngonorrhoeae/*.fna \\
+                > "{output.fna}"
+        """
+
