@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+set -e
+set -o pipefail
+set -u
+
+./_extract_fastmap_data.py logs/*.log  \
+	> fastmap_imac.tsv
+
