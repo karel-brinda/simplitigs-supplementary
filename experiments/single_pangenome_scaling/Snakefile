@@ -1,0 +1,139 @@
+import glob
+import os
+
+ks=[18,31]
+
+def merging(max_number):
+    raw_numbers=set([max_number]) \
+        | set(range(0, 10, 1)) \
+        | set(range(0, 100, 5)) \
+        | set(range(0, 600, 20)) \
+        | set(range(0, 10000, 50))
+    ns=sorted(list(raw_numbers & set(range(1, max_number+1))))
+    return ns
+
+names=[os.path.dirname(x) for x in glob.glob("*/") if x.find("_comp") == -1]
+counts={
+    name: len(glob.glob(f"{name}/*.fna"))
+    for name in names
+}
+
+
+
+inp= [
+            f"{name}.{n}genomes.{method}{k}.fa"
+                for name in names
+                for n in merging(counts[name])
+                for method in ["pa", "bc"]
+                for k in ks
+        ]
+print(inp)
+
+rule all:
+    input: inp
+
+rule merge:
+    output:
+        fa="{name}.{n}genomes.fna"
+    wildcard_constraints:
+        n="\d+"
+    shell:
+        """
+            (
+                ls {wildcards.name}/*.fna \
+                    | head -n {wildcards.n} \
+                    | xargs cat \
+                    > {output}
+            ) \
+            || if [[ $? -eq 141 ]]; then true; else exit $?; fi
+        """
+
+rule prophasm:
+    output:
+        fa=protected("{name}.pa{k}.fa"),
+    input:
+        fa="{name}.fna",
+    threads:
+        1
+    params:
+        prophasm="../../prophasm/prophasm",
+    log:
+        "logs/{name}.pa{k}.log"
+    benchmark:
+        "benchmarks/{name}.pa{k}.txt"
+    shell:
+        """
+            (
+                (
+                    (
+                    /usr/bin/time \\
+                    {params.prophasm} \\
+                        -i "{input.fa}" \\
+                        -o "{output.fa}" \\
+                        -k {wildcards.k} \\
+                    ) > /dev/null
+                ) 2>&1
+            ) > "{log}"
+
+            (
+                printf "Disk usage:\t"
+                du -sh "{output.fa}"
+            ) >> "{log}"
+
+            (
+                printf "Hostname:\t"
+                hostname
+            ) >> "{log}"
+        """
+
+
+rule bcalm:
+    output:
+        fa=protected("{name}.bc{k}.fa"),
+    input:
+        fa="{name}.fna",
+    threads:
+        1
+    params:
+        outdir="{name}.bc{k}",
+        unitigs="{name}.bc{k}/bcalm.unitigs.fa",
+        bcalm="../../bcalm/bcalm",
+    log:
+        "logs/{name}.bc{k}.log"
+    benchmark:
+        "benchmarks/{name}.bc{k}.txt"
+    shell:
+        """
+            (
+                (
+                    mkdir -p "{params.outdir}"
+                    cd "{params.outdir}"
+                    (
+                        /usr/bin/time  \\
+                        ../{params.bcalm} \\
+                            -in ../../"{input.fa}" \\
+                            -kmer-size "{wildcards.k}" \\
+                            -out bcalm \\
+                            -max-disk 10000 \\
+                            -nb-cores {threads} \\
+                            -abundance-min 1 \\
+                    ) > /dev/null
+                ) 2>&1
+            ) | tee "{log}"
+
+            cp "{params.unitigs}" "{output.fa}"
+
+            (
+                printf "Disk usage:\t"
+                du -sh "{params.outdir}"
+            ) >> "{log}"
+
+            (
+                printf "Hostname:\t"
+                hostname
+            ) >> "{log}"
+
+            rm -fr "{params.outdir}"
+        """
+
+

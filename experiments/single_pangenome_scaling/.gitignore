@@ -1,0 +1,6 @@
+*_comp/
+*.fa
+*.fa.*
+*.fna
+*/*.fai
+!*/*.fna

@@ -1,0 +1,8 @@
+{
+    "__default__":
+    {
+        "time"   : "0-08:00",
+        "queue"  : "serial_requeue",
+        "memory" : 40000
+    }
+}
