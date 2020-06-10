@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+
+set -e
+set -o pipefail
+set -u
+
+oo=logs/compute-a-17-133.o2.rc.hms.harvard.edu
+
+./_extract_fastmap_data.py \
+	logs/Karels-iMac.local/*.log  \
+	> fastmap_imac.tsv
+
+
+./_extract_fastmap_data.py \
+	$oo/*.log \
+	> fastmap_o2.tsv
