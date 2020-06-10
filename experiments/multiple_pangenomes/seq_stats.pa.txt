@@ -1,0 +1,8 @@
+name	simplitigs	cum len	kmers
+pa19.fasta	129356161	21512138014	19183727116
+name	simplitigs	cum len	kmers
+pa23.fasta	77802213	21348627552	19636978866
+name	simplitigs	cum len	kmers
+pa27.fasta	59091651	21466163887	19929780961
+name	simplitigs	cum len	kmers
+pa31.fasta	54276168	21801252886	20172967846

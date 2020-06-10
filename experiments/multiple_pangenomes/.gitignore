@@ -1,0 +1,9 @@
+assembly_summary.1_original.tsv
+*.fa
+*.fai
+*.fna
+*.fasta
+*.fasta.*
+*.fma
+*/
+

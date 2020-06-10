@@ -1,0 +1,175 @@
+
+
+PA 31mers
+
+loading
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 31 pa31.fa /dev/null
+[main] Real time: 35.559 sec; CPU: 35.395 sec
+       35.56 real        29.90 user         5.49 sys
+13269237760  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   3239579  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+        10  voluntary context switches
+      5083  involuntary context switches
+loading+querying
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 31 pa31.fa kmers.31.fa
+[main] Real time: 184.140 sec; CPU: 183.608 sec
+      184.14 real       177.79 user         5.81 sys
+13269401600  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   3239618  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+        45  voluntary context switches
+     21919  involuntary context switches
+
+
+PA 18mers
+
+loading
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 18 pa18.fa /dev/null
+[main] Real time: 58.064 sec; CPU: 57.064 sec
+       58.08 real        49.64 user         7.42 sys
+14747713536  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   3600535  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+        72  voluntary context switches
+     21567  involuntary context switches
+loading+querying
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 18 pa18.fa kmers.18.fa
+[main] Real time: 204.075 sec; CPU: 203.577 sec
+      204.09 real       196.97 user         6.60 sys
+14747832320  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+   3600563  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+        41  voluntary context switches
+     24937  involuntary context switches
+
+
+BC 31mers
+
+
+loading
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 31 bc31.fa /dev/null
+[main] Real time: 376.074 sec; CPU: 339.470 sec
+      376.08 real       303.87 user        35.59 sys
+19251851264  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  11026967  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     42095  voluntary context switches
+    131486  involuntary context switches
+loading+querying
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 31 bc31.fa kmers.31.fa
+[main] Real time: 555.133 sec; CPU: 511.093 sec
+      555.14 real       468.56 user        42.52 sys
+21715099648  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  11626692  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+     61697  voluntary context switches
+    150294  involuntary context switches
+
+
+BC 18mers
+
+loading
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa fastmap -l 18 bc18.fa /dev/null
+[main] Real time: 1015.071 sec; CPU: 874.558 sec
+     1015.09 real       770.63 user       103.92 sys
+24683077632  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  24156654  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+    187017  voluntary context switches
+    313030  involuntary context switches
+loading+querying
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+Command terminated abnormally.
+     1155.94 real       758.77 user       164.66 sys
+25343778816  maximum resident set size
+         0  average shared memory size
+         0  average unshared data size
+         0  average unshared stack size
+  31952118  page reclaims
+         2  page faults
+         0  swaps
+         0  block input operations
+         0  block output operations
+         0  messages sent
+         0  messages received
+         0  signals received
+    317842  voluntary context switches
+    713934  involuntary context switches
