@@ -1,0 +1,16 @@
+=====================
+1) Loading references
+=====================
+Loading yeast.fna
+===============
+2) Intersecting
+===============
+11534681 11534681 ...inter:0
+=============
+3) Assembling
+=============
+   assembly finished (5186 contigs)
+16.06user 0.38system 0:17.08elapsed 96%CPU (0avgtext+0avgdata 526116maxresident)k
+24840inputs+23248outputs (0major+293138minor)pagefaults 0swaps
+Disk usage:	8.0M	yeast/yeast.pa25.fa
+Hostname:	compute-e-16-184.o2.rc.hms.harvard.edu

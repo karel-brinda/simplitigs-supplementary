@@ -1,0 +1,16 @@
+=====================
+1) Loading references
+=====================
+Loading spneumoniae.fna
+===============
+2) Intersecting
+===============
+2137099 2137099 ...inter:0
+=============
+3) Assembling
+=============
+   assembly finished (1377 contigs)
+2.59user 0.07system 0:02.78elapsed 95%CPU (0avgtext+0avgdata 106840maxresident)k
+8inputs+4336outputs (0major+29910minor)pagefaults 0swaps
+Disk usage:	512	spneumoniae/spneumoniae.pa25.fa
+Hostname:	compute-e-16-243.o2.rc.hms.harvard.edu

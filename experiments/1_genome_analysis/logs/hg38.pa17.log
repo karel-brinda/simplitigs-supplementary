@@ -1,0 +1,16 @@
+=====================
+1) Loading references
+=====================
+Loading hg38.fna
+===============
+2) Intersecting
+===============
+1393561260 1393561260 ...inter:0
+=============
+3) Assembling
+=============
+   assembly finished (120696453 contigs)
+3778.88user 516.05system 1:12:30elapsed 98%CPU (0avgtext+0avgdata 69428540maxresident)k
+8703224inputs+9356168outputs (2major+629811897minor)pagefaults 0swaps
+Disk usage:	4.5G	hg38/hg38.pa17.fa
+Hostname:	compute-h-17-51.o2.rc.hms.harvard.edu

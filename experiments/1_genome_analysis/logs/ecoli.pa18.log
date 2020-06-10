@@ -1,0 +1,16 @@
+=====================
+1) Loading references
+=====================
+Loading ecoli.fna
+===============
+2) Intersecting
+===============
+4536771 4536771 ...inter:0
+=============
+3) Assembling
+=============
+   assembly finished (3026 contigs)
+5.54user 0.16system 0:05.91elapsed 96%CPU (0avgtext+0avgdata 245352maxresident)k
+9976inputs+9168outputs (0major+98927minor)pagefaults 0swaps
+Disk usage:	512	ecoli/ecoli.pa18.fa
+Hostname:	compute-e-16-188.o2.rc.hms.harvard.edu

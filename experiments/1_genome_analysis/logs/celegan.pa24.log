@@ -1,0 +1,16 @@
+=====================
+1) Loading references
+=====================
+Loading celegan.fna
+===============
+2) Intersecting
+===============
+92560389 92560389 ...inter:0
+=============
+3) Assembling
+=============
+   assembly finished (216993 contigs)
+142.40user 3.02system 2:26.37elapsed 99%CPU (0avgtext+0avgdata 4092896maxresident)k
+202304inputs+197528outputs (0major+1940865minor)pagefaults 0swaps
+Disk usage:	89M	celegan/celegan.pa24.fa
+Hostname:	compute-e-16-185.o2.rc.hms.harvard.edu

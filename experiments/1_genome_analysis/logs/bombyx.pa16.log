@@ -1,0 +1,16 @@
+=====================
+1) Loading references
+=====================
+Loading bombyx.fna
+===============
+2) Intersecting
+===============
+216080600 216080600 ...inter:0
+=============
+3) Assembling
+=============
+   assembly finished (13589625 contigs)
+415.05user 10.93system 7:07.23elapsed 99%CPU (0avgtext+0avgdata 9164032maxresident)k
+971816inputs+1119912outputs (0major+10443402minor)pagefaults 0swaps
+Disk usage:	537M	bombyx/bombyx.pa16.fa
+Hostname:	compute-e-16-186.o2.rc.hms.harvard.edu

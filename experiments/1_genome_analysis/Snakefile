@@ -1,0 +1,294 @@
+names=["ecoli", "spneumoniae", "yeast", "celegan", "bombyx", "hg38"]
+#names=["hg38"]
+#names=["ecoli"]
+
+full_k_set = range (11,33)
+reduced_k_set = [11, 15, 19, 23, 27, 31]
+
+try:
+    if config["reduced"]:
+        k_set=reduced_k_set
+    else:
+        k_set=full_k_set
+except KeyError:
+    k_set=full_k_set
+
+
+rule all:
+    input:
+        [
+            f"{name}/{name}.{method}{k}.fa"
+                for name in names
+                for method in ["pa", "1bc", "4bc"]
+                for k in k_set
+        ]
+
+
+localrules: fai
+rule fai:
+    output:
+        fai="{pref}.fa.fai",
+    input:
+        fa="{pref}.fa",
+    shell:
+        """
+            samtools faidx "{input.fa}"
+        """
+
+def prophasm_resources(wildcards):
+    d={
+        "queue": "short",
+        "mem_mb": 10000,
+        "time": "0-01:00",
+    }
+    if wildcards.name=="bombyx":
+        d["mem_mb"]="20000"
+        d["time"]="0-02:00"
+    if wildcards.name=="hg38":
+        d["mem_mb"]="120000"
+        d["time"]="0-04:00"
+    return d
+
+
+rule prophasm:
+    output:
+        fa=protected("{name}/{name}.pa{k}.fa"),
+    input:
+        fa="{name}.fna",
+        prophasm="../../prophasm/prophasm",
+    threads:
+        1
+    params:
+        mem_mb = lambda wildcards: prophasm_resources(wildcards)["mem_mb"],
+        queue = lambda wildcards: prophasm_resources(wildcards)["queue"],
+        time = lambda wildcards: prophasm_resources(wildcards)["time"],
+    log:
+        "logs/{name}.pa{k}.log"
+    benchmark:
+        "benchmarks/{name}.pa{k}.txt"
+    shell:
+        """
+            echo "Resources:"
+            echo "   Queue: {params.queue}"
+            echo "   Mem:   {params.mem_mb}"
+            echo "   Time:  {params.time}"
+            (
+                (
+                    (
+                    /usr/bin/time \\
+                    {input.prophasm} \\
+                        -i "{input.fa}" \
+                        -o "{output.fa}" \\\
+                        -k {wildcards.k} \\
+                    ) > /dev/null
+                ) 2>&1
+            ) > "{log}"
+
+            (
+                printf "Disk usage:\t"
+                du -sh "{output.fa}"
+            ) >> "{log}"
+
+            (
+                printf "Hostname:\t"
+                hostname
+            ) >> "{log}"
+        """
+
+
+def bcalm_resources(wildcards, threads):
+    d={
+        "queue": "short",
+        "mem_mb": 10000,
+        "time": "0-01:00",
+    }
+    if wildcards.name=="celegan":
+        d["time"]="0-02:00",
+    if wildcards.name=="bombyx":
+        d["mem_mb"]= 30000
+        if threads==4:
+            d["time"]="0-02:00"
+        else:
+            d["time"]="0-10:00"
+    if wildcards.name=="hg38":
+        d["mem_mb"]=100000,
+        d["queue"]="medium"
+        if threads==4:
+            d["time"]="0-18:00"
+        else:
+            d["time"]="2-00:00"
+    return d
+
+
+rule bcalm:
+    output:
+        fa=protected("{name}/{name}.{t}bc{k}.fa"),
+    input:
+        fa="{name}.fna",
+        bcalm="../../bcalm/bcalm"
+    threads:
+        lambda wildcards: int(wildcards.t)
+    params:
+        mem_mb = lambda wildcards, input, threads: bcalm_resources(wildcards, threads)["mem_mb"],
+        queue = lambda wildcards, input, threads: bcalm_resources(wildcards, threads)["queue"],
+        time = lambda wildcards, input, threads: bcalm_resources(wildcards, threads)["time"],
+        outdir="{name}/{name}.{t}bc{k}",
+        unitigs="{name}/{name}.{t}bc{k}/bcalm.unitigs.fa",
+        maxdisk="30000"
+    log:
+        "logs/{name}.{t}bc{k}.log"
+    benchmark:
+        "benchmarks/{name}.{t}bc{k}.txt"
+    shell:
+        """
+            echo "Resources:"
+            echo "   Queue: {params.queue}"
+            echo "   Mem:   {params.mem_mb}"
+            echo "   Time:  {params.time}"
+
+            (
+                (
+                    mkdir -p "{params.outdir}"
+                    cd "{params.outdir}"
+                    (
+                        /usr/bin/time  \\
+                        ../../{input.bcalm} \\
+                            -in ../../"{input.fa}" \\
+                            -kmer-size "{wildcards.k}" \\
+                            -out bcalm \\
+                            -max-disk {params.maxdisk} \\
+                            -nb-cores {threads} \\
+                            -abundance-min 1 \\
+                    ) > /dev/null
+                ) 2>&1
+            ) | tee "{log}"
+
+            cp "{params.unitigs}" "{output.fa}"
+
+            (
+                printf "Disk usage:\t"
+                du -sh "{params.outdir}"
+            ) >> "{log}"
+
+            (
+                printf "Hostname:\t"
+                hostname
+            ) >> "{log}"
+
+            rm -fr "{params.outdir}"
+        """
+
+
+
+##
+## Genomes
+##
+
+localrules: copy
+rule copy:
+    output:
+        fa="{name}/{name}.fna"
+    input:
+        fa="{name}.fna"
+    shell:
+        """
+            mkdir -p "{wildcards.name}/"
+            cp "{input}" "{output}"
+        """
+
+
+localrules: download_ecoli
+rule download_ecoli:
+    output:
+        "ecoli.fna"
+    shell:
+        """
+            curl ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz \\
+                | gzip -d \\
+                > "{output}"
+        """
+
+
+localrules: download_spneumoniae
+rule download_spneumoniae:
+    output:
+        "spneumoniae.fna"
+    shell:
+        """
+            curl ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/026/665/GCF_000026665.1_ASM2666v1/GCF_000026665.1_ASM2666v1_genomic.fna.gz \\
+                | gzip -d \\
+                > "{output}"
+        """
+
+
+localrules: download_yeast
+rule download_yeast:
+    output:
+       "yeast.fna"
+    shell:
+        """
+            curl ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/146/045/GCF_000146045.2_R64/GCF_000146045.2_R64_genomic.fna.gz \\
+                | gzip -d \\
+                > "{output}"
+        """
+
+
+localrules: download_celegan
+rule download_celegan:
+    output:
+        "celegan.fna"
+    shell:
+        """
+            curl ftp://ftp.ensembl.org/pub/release-97/fasta/caenorhabditis_elegans/dna/Caenorhabditis_elegans.WBcel235.dna.toplevel.fa.gz \\
+                | gzip -d \\
+                > "{output}"
+        """
+
+
+localrules: download_bombyx
+rule download_bombyx:
+    output:
+       "bombyx.fna"
+    shell:
+        """
+            curl ftp://ftp.ensemblgenomes.org/pub/metazoa/release-46/fasta/bombyx_mori/dna/Bombyx_mori.ASM15162v1.dna.toplevel.fa.gz \\
+                | gzip -d \\
+                > "{output}"
+        """
+
+
+localrules: download_hg38
+rule download_hg38:
+    output:
+       "hg38.fna"
+    shell:
+        """
+            curl http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz \\
+                | gzip -d \\
+                > "{output}"
+        """
+
+
+localrules: compile_prophasm
+rule compile_prophasm:
+    output:
+        "../../prophasm/prophasm"
+    shell:
+        """
+            make -j4 -C "$(dirname {output})"
+        """
+
+
+localrules: compile_bcalm
+rule compile_bcalm:
+    output:
+        "../../bcalm/bcalm"
+    shell:
+        """
+            cd "$(dirname {output})"
+            git submodule init
+            git submodule update
+            cmake .
+            make -j4
+        """
+

@@ -1,0 +1,9 @@
+*.fa
+*.fna
+*.fai
+!*.log
+*.out
+*.details
+!slurm/*.out
+!slurm/*.details
+
