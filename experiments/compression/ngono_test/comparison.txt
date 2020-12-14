@@ -1,2 +1,0 @@
--rw-rw-r-- 1 kb219 kb219 8.1M Nov  7 19:05 index1cop.tar
--rw-rw-r-- 1 kb219 kb219 8.1M Nov  7 19:05 index2cop.tar
