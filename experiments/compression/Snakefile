@@ -1,0 +1,148 @@
+def xzn (name, method, k):
+    if method=="boss":
+        return f"{name}.boss{k}.tar.xz"
+    else:
+        return f"{name}.{method}{k}.fa.xz"
+
+rule all:
+    input:
+        [
+            [
+                [
+                    xzn(n, m, k) for n in ["ecoli", "spneumoniae", "celegan", "yeast", "bombyx","pangenome-spneumoniae","pangenome-ngonorrhoeae", "hg38"]
+                ] for m in ["boss", "assembly", "simplitigs", "unitigs"]
+            ] for k in [18, 31]
+        ]
+
+
+rule boss:
+    output: "{name}.boss{k}.tar"
+    input: "{name}.assembly{k}.fa"
+    params:
+        themisto="../../themisto/bin/build_index",
+        d="{name}.boss{k}",
+        mem_mb=20000,
+        cpu_time="08:00:00",
+    threads: 8
+    shell:
+        """
+            ulimit -n 2048
+            tmp=$(mktemp -d)
+            mkdir -p "{params.d}"
+            rm -fr "{params.d}"/*
+            {params.themisto} \
+                --mem-megas {params.mem_mb} \
+                --k {wildcards.k} \
+                --input-file {input} \
+                --n-threads {threads} \
+                --index-dir {params.d} \
+                --temp-dir $tmp
+            tar cvf - {params.d} \
+                > "{output}"
+        """
+
+
+rule xz:
+    output: "{fn}.xz"
+    input: "{fn}"
+    threads: 1
+    params:
+        mem_mb=10000,
+        cpu_time="04:00:00",
+    shell:
+        """
+            cat {input} \
+                | xz -T {threads} -v -9 \
+                > {output}
+        """
+
+
+localrules: cp_asm, cp_asm_simplitigs, cp_asm_unitigs
+
+rule cp_asm_unitigs:
+    output: "{name}.unitigs{k}.fa"
+    input:  "../1_genome_analysis/{name}/{name}.4bc{k}.fa"
+    shell:
+        """
+            seqtk seq -U -C "{input}" > {output}
+        """
+
+rule cp_asm_simplitigs:
+    output: "{name}.simplitigs{k}.fa"
+    input:  "../1_genome_analysis/{name}/{name}.pa{k}.fa"
+    shell:
+        """
+            seqtk seq -U -C "{input}" > {output}
+        """
+
+rule cp_asm:
+    output: "{name}.assembly{k}.fa"
+    input:  "../1_genome_analysis/{name}.fna"
+    shell:
+        """
+            seqtk cutN -n1 "{input}" \\
+                | seqtk seq -U -C -L18 \\
+                | bioawk -c fastx '{{ print ">" ++i" \\n"$seq }}' \\
+                > {output}
+        """
+
+
+localrules: cp_pang_spneumo_unitigs, cp_pang_spneumo_simplitigs, cp_pang_spneumo_asm
+
+rule cp_pang_spneumo_unitigs:
+    output: "pangenome-spneumoniae.unitigs{k}.fa"
+    input:  "../single_pangenome_scaling/spneumoniae.616genomes.bc{k}.fa"
+    shell:
+        """
+            seqtk seq -U -C "{input}" > {output}
+        """
+
+rule cp_pang_spneumo_simplitigs:
+    output: "pangenome-spneumoniae.simplitigs{k}.fa"
+    input:  "../single_pangenome_scaling/spneumoniae.616genomes.pa{k}.fa"
+    shell:
+        """
+            seqtk seq -U -C "{input}" > {output}
+        """
+
+rule cp_pang_spneumo_asm:
+    output: "pangenome-spneumoniae.assembly{k}.fa"
+    input:  "../single_pangenome_scaling/spneumoniae.616genomes.fna"
+    shell:
+        """
+            seqtk cutN -n1 "{input}" \\
+                | seqtk seq -U -C -L18 \\
+                | bioawk -c fastx '{{ print ">" ++i" \\n"$seq }}' \\
+                > {output}
+        """
+
+
+localrules: cp_pang_ngono_unitigs, cp_pang_ngono_simplitigs, cp_pang_ngono_asm
+
+rule cp_pang_ngono_unitigs:
+    output: "pangenome-ngonorrhoeae.unitigs{k}.fa"
+    input:  "../single_pangenome_scaling/ngonorrhoeae.1102genomes.bc{k}.fa"
+    shell:
+        """
+            seqtk seq -U -C "{input}" > {output}
+        """
+
+rule cp_pang_ngono_simplitigs:
+    output: "pangenome-ngonorrhoeae.simplitigs{k}.fa"
+    input:  "../single_pangenome_scaling/ngonorrhoeae.1102genomes.pa{k}.fa"
+    shell:
+        """
+            seqtk seq -U -C "{input}" > {output}
+        """
+
+rule cp_pang_ngono_asm:
+    output: "pangenome-ngonorrhoeae.assembly{k}.fa"
+    input:  "../single_pangenome_scaling/ngonorrhoeae.1102genomes.fna"
+    shell:
+        """
+            seqtk cutN -n1 "{input}" \\
+                | seqtk seq -U -C -L18 \\
+                | bioawk -c fastx '{{ print ">" ++i" \\n"$seq }}' \\
+                > {output}
+        """
+

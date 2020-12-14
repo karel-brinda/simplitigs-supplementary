@@ -75,5 +75,18 @@ es_add_sheet(
   auto_size_columns = T
 )
 
+# BCALM versions -------------------------------------------------------------
+
+df.bv <- read_tsv("bcalm_versions.o2_results_postprocessed.tsv")
+
+es_add_sheet(
+  wb,
+  df.bv,
+  "c) BCALM versions",
+  "Comparison of BCALM versions",
+  "Comparsion of BCALM 2.2.2 vs. BCALM 2.2.3",
+  auto_size_columns = T
+)
+
 
 es_save(wb, fn)
