@@ -4,3 +4,6 @@
 [submodule "bwa"]
 	path = bwa
 	url = https://github.com/karel-brinda/bwa
+[submodule "bcalm"]
+	path = bcalm
+	url = https://github.com/GATB/bcalm
