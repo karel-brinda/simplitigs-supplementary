@@ -1,0 +1,17 @@
+experiment	k	kmers
+spneumoniae	18	2123906
+spneumoniae	31	2145215
+ecoli	18	4536771
+ecoli	31	4554269
+yeast	18	11456651
+yeast	31	11564096
+celegan	18	86266695
+celegan	31	94006897
+bombyx	18	276103750
+bombyx	31	329902514
+hg38	18	1834026029
+hg38	31	2503985560
+pangenome-spneumoniae	18	7372346
+pangenome-spneumoniae	31	9634685
+pangenome-ngonorrhoeae	18	3360103
+pangenome-ngonorrhoeae	31	4179243
