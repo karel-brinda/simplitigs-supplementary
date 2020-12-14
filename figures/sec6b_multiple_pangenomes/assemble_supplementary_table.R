@@ -4,7 +4,7 @@ library(tidyverse)
 library(easySupplementary)
 
 
-fn <- "Additional_File_5.xlsx"
+fn <- "Additional_File_6.xlsx"
 
 # Data processing -------------------------------------------------------
 
