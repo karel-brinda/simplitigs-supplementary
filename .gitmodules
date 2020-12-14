@@ -1,3 +1,6 @@
 [submodule "themisto"]
 	path = themisto
 	url = https://github.com/algbio/themisto
+[submodule "bwa"]
+	path = bwa
+	url = https://github.com/karel-brinda/bwa
