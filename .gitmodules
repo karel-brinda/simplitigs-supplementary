@@ -1,0 +1,15 @@
+[submodule "themisto"]
+	path = themisto
+	url = https://github.com/algbio/themisto
+[submodule "bwa"]
+	path = bwa
+	url = https://github.com/karel-brinda/bwa
+[submodule "bcalm"]
+	path = bcalm
+	url = https://github.com/GATB/bcalm
+[submodule "bcalm-versions/bcalm-2.2.2"]
+	path = bcalm-versions/bcalm-2.2.2
+	url = https://github.com/GATB/bcalm/
+[submodule "bcalm-versions/bcalm-2.2.3"]
+	path = bcalm-versions/bcalm-2.2.3
+	url = https://github.com/GATB/bcalm/
