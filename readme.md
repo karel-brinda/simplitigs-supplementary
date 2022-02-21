@@ -13,7 +13,7 @@ Here we provide data and pipelines for the paper [Simplitigs as an efficient and
 ```
 @article{brinda2021-simplitigs,
   title   = { Simplitigs as an efficient and scalable representation of de {Bruijn} graphs },
-  author  = { Karel Břinda and Michael Baym and Gregory Kucherov },
+  author  = { Karel B{\v r}inda and Michael Baym and Gregory Kucherov },
   journal = { Genome Biology },
   volume  = { 22 },
   number  = { 96 },
